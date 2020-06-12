@@ -11,9 +11,9 @@ ii)  etl.py:  This file is the backbone of project.We are extracting data from f
 
 iii) sql_queries: This files provides sql querie for all the operations such as create table, insert a row etc.
 
-Database Design:
-<img source="https://udacity-reviews-uploads.s3.us-west-2.amazonaws.com/_attachments/33760/1591881849/Song_ERD.png"/>
-
+Database Design:<br>
+<img src="https://udacity-reviews-uploads.s3.us-west-2.amazonaws.com/_attachments/33760/1591881849/Song_ERD.png" />
+<br>
 To run this project, download the data place all the files in one folder. Run create_tables.py first and then etl.py.
 
 Places to improvements : There is way to bulk insert intead of one by one, I didn't implement it yet since I had a limited time.You can try to implement it.
