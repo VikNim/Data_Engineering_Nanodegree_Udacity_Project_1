@@ -31,11 +31,6 @@ def drop_tables(cur, conn):
     """
     Drops each table using the queries in `drop_table_queries` list.
     """
-#     try:
-#         cur.execute("DROP TABLE songplays, users, songs, artists, time CASCADE")
-# #         conn.commit()
-#     except psycopg2.Error as e:
-#         print(e)
     try:
         for query in drop_table_queries:
             cur.execute(query)

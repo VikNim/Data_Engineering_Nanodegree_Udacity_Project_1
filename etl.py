@@ -12,15 +12,18 @@ def process_song_file(cur, filepath):
     data = pd.read_json(filepath, lines=True)
     df = df.append(data, ignore_index = True)
 
+    # insert artist record
+    artist_data = (df['artist_id'].tolist()[0], df['artist_name'].tolist()[0], df['artist_location'].tolist()[0], 
+                   df['artist_latitude'].tolist()[0], df['artist_longitude'].tolist()[0])
+    cur.execute(artist_table_insert, artist_data)
+    
     # insert song record
-    song_data = (df['song_id'].tolist()[0], df['title'].tolist()[0], df['artist_id'].tolist()[0], df['year'].tolist()[0], df['duration'].tolist()[0])
+    song_data = (df['song_id'].tolist()[0], df['title'].tolist()[0], df['artist_id'].tolist()[0], 
+                 df['year'].tolist()[0], df['duration'].tolist()[0])
 #     print(type(df['song_id']))
 #     print(df['song_id'])
     cur.execute(song_table_insert, song_data)
     
-    # insert artist record
-    artist_data = (df['artist_id'].tolist()[0], df['artist_name'].tolist()[0], df['artist_location'].tolist()[0], df['artist_latitude'].tolist()[0], df['artist_longitude'].tolist()[0])
-    cur.execute(artist_table_insert, artist_data)
 
 
 def process_log_file(cur, filepath):
@@ -76,18 +79,19 @@ def process_log_file(cur, filepath):
         
         if results:
             songid, artistid = results
-            start_time = pd.to_datetime(row['ts'], unit='ms')
-            userId = row['userId']
-            level = row['level']
-            sessionId = row['sessionId']
-            location = row['location']
-            userAgent = row['userAgent']
-
-            songplay_data = (start_time,userId,level,songid,artistid,sessionId,location, userAgent)
-            # insert songplay record
-            cur.execute(songplay_table_insert, songplay_data)
         else:
             songid, artistid = None, None
+        
+        start_time = pd.to_datetime(row['ts'], unit='ms')
+        userId = row['userId']
+        level = row['level']
+        sessionId = row['sessionId']
+        location = row['location']
+        userAgent = row['userAgent']
+
+        songplay_data = (start_time,userId,level,songid,artistid,sessionId,location, userAgent)
+        # insert songplay record
+        cur.execute(songplay_table_insert, songplay_data)
 
 def process_data(cur, conn, filepath, func):
     # get all files matching extension from directory
