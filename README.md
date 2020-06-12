@@ -1,24 +1,19 @@
 # Data_Engineering_Nanodegree_Udacity
-The purpose of this project is to create ETL for SPRKLIFLY.
-Firstly create a start schema database for sparklifly songs in Postgres.
-Then Create following tables:
-   Fact Table
-   
-        songplays - records in log data associated with song plays i.e. records with page NextSong
-            songplay_id, start_time, user_id, level, song_id, artist_id, session_id, location, user_agent
+The purpose of this project is to implement a basic, simple ETL process for SPRKLIFLY.
+We are implementing a star schema database using PostgreSQL database and Python 3.
 
-   Dimension Tables
-   
-        users - users in the app
-            user_id, first_name, last_name, gender, level
-        songs - songs in music database
-            song_id, title, artist_id, year, duration
-        artists - artists in music database
-            artist_id, name, location, latitude, longitude
-        time - timestamps of records in songplays broken down into specific units
-            start_time, hour, day, week, month, year, weekday
+Project Files:
+i)   create_tables: This files makes the database setup by creating sparklifly database schema, 
+                    creating tables in database schema and setting necessary constraint for each table.
 
-Extract data from given data files.
-Load data into database using Python.
+ii)  etl.py:  This file is the backbone of project.We are extracting data from files, transforming the values
+              and loading the values in database with use of this file.
 
-This project is perfect example of very basic ETL process.
+iii) sql_queries: This files provides sql querie for all the operations such as create table, insert a row etc.
+
+Database Design:
+<img source="https://udacity-reviews-uploads.s3.us-west-2.amazonaws.com/_attachments/33760/1591881849/Song_ERD.png"/>
+
+To run this project, download the data place all the files in one folder. Run create_tables.py first and then etl.py.
+
+Places to improvements : There is way to bulk insert intead of one by one, I didn't implement it yet since I had a limited time.You can try to implement it.
